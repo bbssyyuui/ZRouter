@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/ZRouter.iml" filepath="$PROJECT_DIR$/ZRouter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/zrouter-annotation/zrouter-annotation.iml" filepath="$PROJECT_DIR$/zrouter-annotation/zrouter-annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zrouter-api/zrouter-api.iml" filepath="$PROJECT_DIR$/zrouter-api/zrouter-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zrouter-aspectjx/zrouter-aspectjx.iml" filepath="$PROJECT_DIR$/zrouter-aspectjx/zrouter-aspectjx.iml" />
       <module fileurl="file://$PROJECT_DIR$/zrouter-compiler/zrouter-compiler.iml" filepath="$PROJECT_DIR$/zrouter-compiler/zrouter-compiler.iml" />
     </modules>
   </component>

@@ -10,6 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/zrouter-annotation" />
+            <option value="$PROJECT_DIR$/zrouter-api" />
+            <option value="$PROJECT_DIR$/zrouter-aspectjx" />
             <option value="$PROJECT_DIR$/zrouter-compiler" />
           </set>
         </option>

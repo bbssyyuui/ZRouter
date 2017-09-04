@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zdf.zrouter.MainActivity">
+    tools:context="com.zdf.zrouter.FirstActivity">
 
     <TextView
-        android:id="@+id/tv_hello"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="FirstActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,20 +20,9 @@
         android:id="@+id/btn_jump1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FirstActivity >>"
+        android:text="Back"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/btn_jump2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_jump2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SecondActivity >>"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/tv_hello"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
