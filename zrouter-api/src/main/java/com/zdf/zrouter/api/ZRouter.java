@@ -9,8 +9,4 @@ public class ZRouter {
     public <T> T create(Class<T> service) {
         return null;
     }
-
-    public <T> T test(Class<T> service) {
-        return null;
-    }
 }

@@ -9,8 +9,7 @@ import java.lang.annotation.Target;
  * Created by xiaofeng on 2017/9/3.
  */
 
-@Target(ElementType.METHOD)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.CLASS)
-public @interface Url {
-    String value() default "";
+public @interface ZService {
 }

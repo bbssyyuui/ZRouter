@@ -6,11 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by xiaofeng on 2017/9/3.
+ * Created by xiaofeng on 2017/9/5.
  */
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface Url {
+public @interface Action {
     String value() default "";
 }
