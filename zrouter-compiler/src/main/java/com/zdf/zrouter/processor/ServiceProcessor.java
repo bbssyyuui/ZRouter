@@ -3,6 +3,7 @@ package com.zdf.zrouter.processor;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -145,6 +146,7 @@ public class ServiceProcessor extends AbstractProcessor {
 
     private TypeSpec generateService(TypeElement classElement, List<Address> addressList) {
         List<MethodSpec> methodSpecList = new ArrayList<>();
+        methodSpecList.add(generateConstructMethod());
         for (Address address : addressList) {
             methodSpecList.add(generateMethod(address));
         }
@@ -152,13 +154,28 @@ public class ServiceProcessor extends AbstractProcessor {
         return TypeSpec.classBuilder(classElement.getSimpleName() + "Impl")
                 .addSuperinterface(ClassName.get(classElement))
                 .addModifiers(Modifier.PUBLIC)
+                .addField(generateField())
                 .addMethods(methodSpecList)
+                .build();
+    }
+
+    private FieldSpec generateField() {
+        ClassName context = ClassName.get("android.content", "Context");
+        return FieldSpec.builder(context, "context", Modifier.PRIVATE).build();
+    }
+
+    private MethodSpec generateConstructMethod() {
+        ClassName context = ClassName.get("android.content", "Context");
+
+        return MethodSpec.constructorBuilder()
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(context, "context")
+                .addStatement("this.context = context")
                 .build();
     }
 
     private MethodSpec generateMethod(Address address) {
         ClassName intent = ClassName.get("android.content", "Intent");
-        ClassName context = ClassName.get("android.content", "Context");
         ClassName URI = ClassName.get("android.net", "Uri");
 
         CodeBlock.Builder builder = CodeBlock.builder();
@@ -178,7 +195,6 @@ public class ServiceProcessor extends AbstractProcessor {
                 .addModifiers(Modifier.PUBLIC)
                 .returns(void.class)
                 .addAnnotation(Override.class)
-                .addParameter(context, "context")
                 .addCode(builder.build())
                 .build();
     }

@@ -86,8 +86,9 @@ public class AspectProcessor extends AbstractProcessor {
         return TypeSpec.classBuilder("AspectMaker")
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(AnnotationSpec.builder(Aspect.class).build())
-                .addMethod(generateOnCreateMethod(classElement, fieldElement))
-                .addMethod(generateCreateMethod(fieldElement))
+//                .addMethod(generateOnCreateMethod(classElement, fieldElement))
+//                .addMethod(generateCreateMethod(fieldElement))
+                .addMethod(generateOnCreateMethod2(classElement, fieldElement))
                 .build();
     }
 
@@ -96,7 +97,26 @@ public class AspectProcessor extends AbstractProcessor {
 
         CodeBlock.Builder builder = CodeBlock.builder();
         builder.addStatement("$T target = ($T)joinPoint.getTarget()", classElement, classElement);
-        builder.addStatement("target.$L = new $T().create($T.class)", fieldElement, ZRouter, fieldElement);
+        builder.addStatement("target.$L = $T.newInstance(target).create($T.class)", fieldElement, ZRouter, fieldElement);
+        builder.addStatement("return joinPoint.proceed()");
+
+        return MethodSpec.methodBuilder("aroundOnCreateMethod")
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(ProceedingJoinPoint.class, "joinPoint")
+                .returns(Object.class)
+                .addException(Throwable.class)
+                .addAnnotation(AnnotationSpec.builder(Around.class).addMember("value", "$S", "execution(* " + classElement.getQualifiedName() + ".onCreate(..))").build())
+                .addCode(builder.build())
+                .build();
+    }
+
+    private MethodSpec generateOnCreateMethod2(TypeElement classElement, VariableElement fieldElement) {
+        String ServiceImplName = types.asElement(fieldElement.asType()).getSimpleName() + "Impl";
+        ClassName ServiceImpl = ClassName.get("com.zdf.zrouter", ServiceImplName);
+
+        CodeBlock.Builder builder = CodeBlock.builder();
+        builder.addStatement("$T target = ($T)joinPoint.getTarget()", classElement, classElement);
+        builder.addStatement("target.$L = new $T(target)", fieldElement, ServiceImpl);
         builder.addStatement("return joinPoint.proceed()");
 
         return MethodSpec.methodBuilder("aroundOnCreateMethod")
@@ -110,11 +130,12 @@ public class AspectProcessor extends AbstractProcessor {
     }
 
     private MethodSpec generateCreateMethod(VariableElement fieldElement) {
+        ClassName ZRouter = ClassName.get("com.zdf.zrouter.api", "ZRouter");
         String ServiceImplName = types.asElement(fieldElement.asType()).getSimpleName() + "Impl";
         ClassName ServiceImpl = ClassName.get("com.zdf.zrouter", ServiceImplName);
 
         CodeBlock.Builder builder = CodeBlock.builder();
-//        builder.addStatement("$T target = ($T)joinPoint.getTarget()", ZRouter, ZRouter);
+        builder.addStatement("$T target = ($T)joinPoint.getTarget()", ZRouter, ZRouter);
         builder.beginControlFlow("if (joinPoint.getArgs() == null || joinPoint.getArgs().length != 1)");
         builder.addStatement("return joinPoint.proceed()");
         builder.endControlFlow();
@@ -122,8 +143,8 @@ public class AspectProcessor extends AbstractProcessor {
         builder.beginControlFlow("if (arg instanceof Class)");
         builder.addStatement("$T buildClass = ($T) arg", Class.class, Class.class);
         builder.beginControlFlow("if (buildClass.isAssignableFrom($T.class))", fieldElement);
-//        builder.addStatement("return new $T(target)", ServiceImpl);
-        builder.addStatement("return new $T()", ServiceImpl);
+        builder.addStatement("return new $T(target.getContext())", ServiceImpl);
+//        builder.addStatement("return new $T()", ServiceImpl);
         builder.endControlFlow();
         builder.endControlFlow();
         builder.addStatement("return joinPoint.proceed()");

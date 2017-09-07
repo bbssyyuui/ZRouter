@@ -5,11 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.zdf.zrouter.anno.AnnoTest;
 import com.zdf.zrouter.anno.ZService;
 import com.zdf.zrouter.service.RouterService;
 
-@AnnoTest
 public class MainActivity extends AppCompatActivity {
 
     @ZService
@@ -20,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        routerService = new ZRouter().create(RouterService.class);
+//        routerService = ZRouter.newInstance(this).create(RouterService.class);
 
         Button btnJump1 = (Button) findViewById(R.id.btn_jump1);
         Button btnJump2 = (Button) findViewById(R.id.btn_jump2);
@@ -30,28 +28,28 @@ public class MainActivity extends AppCompatActivity {
         btnJump1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                routerService.startFirstActivity(MainActivity.this);
+                routerService.startFirstActivity();
             }
         });
 
         btnJump2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                routerService.startSecondActivity(MainActivity.this);
+//                routerService.startSecondActivity();
             }
         });
 
         btnJump3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                routerService.startCapture(MainActivity.this);
+                routerService.startCapture();
             }
         });
 
         btnJump4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                routerService.startTel(MainActivity.this);
+//                routerService.startTel();
             }
         });
     }

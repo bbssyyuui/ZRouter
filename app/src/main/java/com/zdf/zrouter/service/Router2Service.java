@@ -1,7 +1,5 @@
 package com.zdf.zrouter.service;
 
-import android.content.Context;
-
 import com.zdf.zrouter.FirstActivity;
 import com.zdf.zrouter.anno.Activity;
 import com.zdf.zrouter.anno.Url;
@@ -13,9 +11,9 @@ import com.zdf.zrouter.anno.Url;
 public interface Router2Service {
 
     @Activity(FirstActivity.class)
-    void startFirstActivity(Context context);
+    void startFirstActivity();
 
     @Url("zdf://third")
     @Activity(FirstActivity.class)
-    void startThirdActivity(Context context);
+    void startThirdActivity();
 }

@@ -1,6 +1,5 @@
 package com.zdf.zrouter.service;
 
-import android.content.Context;
 import android.content.Intent;
 import android.provider.MediaStore;
 
@@ -17,15 +16,15 @@ public interface RouterService {
 
     @Url("zdf://first")
     @Activity(FirstActivity.class)
-    void startFirstActivity(Context context);
+    void startFirstActivity();
 
     @Url("zdf://second")
-    void startSecondActivity(Context context);
+    void startSecondActivity();
 
     @Action(MediaStore.ACTION_IMAGE_CAPTURE)
-    void startCapture(Context context);
+    void startCapture();
 
     @Action(Intent.ACTION_DIAL)
     @Url("tel:{phone}")
-    void startTel(Context context);
+    void startTel();
 }
