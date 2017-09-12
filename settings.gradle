@@ -1,1 +1,1 @@
-include ':app', ':zrouter-compiler', ':zrouter-annotation', ':zrouter-api', ':zrouter-aspectjx', ':second'
+include ':app', ':zrouter-compiler', ':zrouter-annotation', ':zrouter-api', ':zrouter-aspectjx', ':second', ':first'

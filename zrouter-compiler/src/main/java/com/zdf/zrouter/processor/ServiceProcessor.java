@@ -9,6 +9,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import com.zdf.zrouter.anno.Action;
 import com.zdf.zrouter.anno.Activity;
+import com.zdf.zrouter.anno.Path;
 import com.zdf.zrouter.anno.Url;
 import com.zdf.zrouter.processor.model.Address;
 import com.zdf.zrouter.processor.util.Logger;
@@ -61,6 +62,7 @@ public class ServiceProcessor extends AbstractProcessor {
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
         types.add(Activity.class.getCanonicalName());
+        types.add(Path.class.getCanonicalName());
         types.add(Url.class.getCanonicalName());
         types.add(Action.class.getCanonicalName());
         return types;
@@ -182,6 +184,9 @@ public class ServiceProcessor extends AbstractProcessor {
         builder.addStatement("$T intent = new $T()", intent, intent);
         if (address.getActivity() != null) {
             builder.addStatement("intent.setClass(context, $T.class)", address.getActivity());
+        }
+        if (address.getPath() != null) {
+            builder.addStatement("intent.setClassName(context, $S)", address.getPath());
         }
         if (address.getUrl() != null) {
             builder.addStatement("intent.setData($T.parse($S))", URI, address.getUrl());

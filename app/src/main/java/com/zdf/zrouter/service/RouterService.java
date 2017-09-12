@@ -3,10 +3,11 @@ package com.zdf.zrouter.service;
 import android.content.Intent;
 import android.provider.MediaStore;
 
-import com.zdf.zrouter.FirstActivity;
+import com.zdf.zrouter.LocalActivity;
 import com.zdf.zrouter.anno.Action;
 import com.zdf.zrouter.anno.Activity;
-import com.zdf.zrouter.anno.Url;
+import com.zdf.zrouter.anno.Flag;
+import com.zdf.zrouter.anno.Path;
 
 /**
  * Created by xiaofeng on 2017/9/3.
@@ -14,17 +15,20 @@ import com.zdf.zrouter.anno.Url;
 
 public interface RouterService {
 
-    @Url("zdf://first")
-    @Activity(FirstActivity.class)
+    @Activity(LocalActivity.class)
+    void startLocalActivity();
+
+    @Path("com.zdf.first.FirstActivity")
     void startFirstActivity();
 
-    @Url("zdf://second")
+    @Path("com.zdf.second.SecondActivity")
     void startSecondActivity();
 
     @Action(MediaStore.ACTION_IMAGE_CAPTURE)
     void startCapture();
 
     @Action(Intent.ACTION_DIAL)
-    @Url("tel:{phone}")
+    @Path("tel:phone")
+    @Flag(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)
     void startTel();
 }

@@ -2,6 +2,7 @@ package com.zdf.zrouter.processor.model;
 
 import com.zdf.zrouter.anno.Action;
 import com.zdf.zrouter.anno.Activity;
+import com.zdf.zrouter.anno.Path;
 import com.zdf.zrouter.anno.Url;
 
 import javax.lang.model.element.Element;
@@ -17,12 +18,14 @@ public class Address {
 
     private ExecutableElement methodElement;
     private TypeMirror activity;
+    private String path;
     private String url;
     private String action;
 
     public Address(Element element) {
         methodElement = (ExecutableElement) element;
         Activity annoActivity = element.getAnnotation(Activity.class);
+        Path annoPath = element.getAnnotation(Path.class);
         Url annoUrl = element.getAnnotation(Url.class);
         Action annoAction = element.getAnnotation(Action.class);
 
@@ -32,6 +35,10 @@ public class Address {
             } catch (MirroredTypeException mte) {
                 activity = mte.getTypeMirror();
             }
+        }
+
+        if (annoPath != null) {
+            path = annoPath.value();
         }
 
         if (annoUrl != null) {
@@ -57,6 +64,14 @@ public class Address {
 
     public void setActivity(TypeMirror activity) {
         this.activity = activity;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getUrl() {

@@ -1,6 +1,6 @@
 package com.zdf.zrouter.service;
 
-import com.zdf.zrouter.FirstActivity;
+import com.zdf.zrouter.LocalActivity;
 import com.zdf.zrouter.anno.Activity;
 import com.zdf.zrouter.anno.Url;
 
@@ -8,12 +8,12 @@ import com.zdf.zrouter.anno.Url;
  * Created by xiaofeng on 2017/9/3.
  */
 
-public interface Router2Service {
+public interface TestService {
 
-    @Activity(FirstActivity.class)
+    @Activity(LocalActivity.class)
     void startFirstActivity();
 
-    @Url("zdf://third")
-    @Activity(FirstActivity.class)
+    @Url("zdf://first")
+    @Activity(LocalActivity.class)
     void startThirdActivity();
 }

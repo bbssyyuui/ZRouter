@@ -18,45 +18,47 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        routerService = ZRouter.newInstance(this).create(RouterService.class);
+        // routerService = ZRouter.newInstance(this).create(RouterService.class);
 
         Button btnJump1 = (Button) findViewById(R.id.btn_jump1);
         Button btnJump2 = (Button) findViewById(R.id.btn_jump2);
         Button btnJump3 = (Button) findViewById(R.id.btn_jump3);
         Button btnJump4 = (Button) findViewById(R.id.btn_jump4);
+        Button btnJump5 = (Button) findViewById(R.id.btn_jump5);
 
         btnJump1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                routerService.startFirstActivity();
+                routerService.startLocalActivity();
             }
         });
 
         btnJump2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                routerService.startSecondActivity();
+                routerService.startFirstActivity();
             }
         });
 
         btnJump3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                routerService.startCapture();
+                routerService.startSecondActivity();
             }
         });
 
         btnJump4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                routerService.startTel();
+                routerService.startCapture();
+            }
+        });
+
+        btnJump5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // routerService.startTel();
             }
         });
     }
-
-//    public void startFirstActivity() {
-//        Intent intent = new Intent();
-//        intent.setClass(this, FirstActivity.class);
-//        startActivity(intent);
-//    }
 }

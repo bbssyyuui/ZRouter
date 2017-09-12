@@ -6,56 +6,69 @@
     android:layout_height="match_parent"
     tools:context="com.zdf.zrouter.MainActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MainActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btn_jump1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="FirstActivity >>"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="LocalActivity >>"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/btn_jump2"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_jump2"
-        app:layout_constraintRight_toRightOf="@+id/btn_jump2" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_jump2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="253dp"
-        android:text="SecondActivity >>"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="FirstActivity >>"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/btn_jump3"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_jump3"
-        app:layout_constraintRight_toRightOf="@+id/btn_jump3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_jump1" />
 
     <Button
         android:id="@+id/btn_jump3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="338dp"
-        android:text="Capture >>"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="SecondActivity >>"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/btn_jump4"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_jump4"
-        app:layout_constraintRight_toRightOf="@+id/btn_jump4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_jump2" />
 
     <Button
         android:id="@+id/btn_jump4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="303dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Capture >>"
+        android:textAllCaps="false"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_jump3" />
+
+    <Button
+        android:id="@+id/btn_jump5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:text="Tel >>"
         android:textAllCaps="false"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_jump4" />
 
 </android.support.constraint.ConstraintLayout>
