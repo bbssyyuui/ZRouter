@@ -1,4 +1,4 @@
-package com.zdf.first;
+package com.zdf.zrouter.first;
 
 import org.junit.Test;
 

@@ -18,10 +18,10 @@ public interface RouterService {
     @Activity(LocalActivity.class)
     void startLocalActivity();
 
-    @Path("com.zdf.first.FirstActivity")
+    @Path("com.zdf.zrouter.first.FirstActivity")
     void startFirstActivity();
 
-    @Path("com.zdf.second.SecondActivity")
+    @Path("com.zdf.zrouter.second.SecondActivity")
     void startSecondActivity();
 
     @Action(MediaStore.ACTION_IMAGE_CAPTURE)

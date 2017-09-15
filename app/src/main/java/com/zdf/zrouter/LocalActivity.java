@@ -1,11 +1,17 @@
 package com.zdf.zrouter;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.zdf.zrouter.anno.ZService;
+import com.zdf.zrouter.service.RouterService;
+
 public class LocalActivity extends AppCompatActivity {
+
+    @ZService
+    public RouterService routerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

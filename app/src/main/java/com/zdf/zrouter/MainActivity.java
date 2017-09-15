@@ -2,21 +2,30 @@ package com.zdf.zrouter;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.zdf.zrouter.anno.ZService;
 import com.zdf.zrouter.service.RouterService;
+import com.zdf.zrouter.service.TestService;
 
 public class MainActivity extends AppCompatActivity {
 
     @ZService
     RouterService routerService;
 
+    @ZService
+    TestService testService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String test = "com.zdf.zrouter.BuildConfig";
+        String sub = test.substring(0, test.indexOf("BuildConfig") - 1);
+        Log.v("zdf", "sub = " + sub);
 
         // routerService = ZRouter.newInstance(this).create(RouterService.class);
 

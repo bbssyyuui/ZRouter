@@ -1,4 +1,4 @@
-package com.zdf.first;
+package com.zdf.zrouter.first;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.zdf.first.test", appContext.getPackageName());
+        assertEquals("com.zdf.zrouter.first.test", appContext.getPackageName());
     }
 }

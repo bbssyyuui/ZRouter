@@ -1,4 +1,4 @@
-package com.zdf.zrouter.processor.model;
+package com.zdf.zrouter.complier.model;
 
 import com.zdf.zrouter.anno.Action;
 import com.zdf.zrouter.anno.Activity;
@@ -14,7 +14,7 @@ import javax.lang.model.type.TypeMirror;
  * Created by xiaofeng on 2017/9/4.
  */
 
-public class Address {
+public class FuncAttr {
 
     private ExecutableElement methodElement;
     private TypeMirror activity;
@@ -22,8 +22,9 @@ public class Address {
     private String url;
     private String action;
 
-    public Address(Element element) {
+    public FuncAttr(Element element) {
         methodElement = (ExecutableElement) element;
+
         Activity annoActivity = element.getAnnotation(Activity.class);
         Path annoPath = element.getAnnotation(Path.class);
         Url annoUrl = element.getAnnotation(Url.class);

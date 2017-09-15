@@ -31,7 +31,6 @@ dependencies {
 
     compile project(':zrouter-api')
     compile project(':zrouter-aspectjx')
-    compile project(':zrouter-annotation')
     annotationProcessor project(':zrouter-compiler')
 
     compile project(':first')
