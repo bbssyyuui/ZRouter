@@ -5,6 +5,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 import com.zdf.zrouter.anno.Action;
 import com.zdf.zrouter.anno.Activity;
@@ -16,6 +17,7 @@ import com.zdf.zrouter.complier.model.FuncAttr;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 
 /**
  * 用于生成各种Service类
@@ -227,6 +230,7 @@ public class ServiceProcessor extends BaseProcessor {
         ClassName intent = ClassName.get("android.content", "Intent");
         ClassName URI = ClassName.get("android.net", "Uri");
 
+        Set<ParameterSpec> parameterSpecSet = new HashSet<>();
         CodeBlock.Builder builder = CodeBlock.builder();
         builder.addStatement("$T intent = new $T()", intent, intent);
         if (funcAttr.getClazz() != null) {
@@ -247,6 +251,17 @@ public class ServiceProcessor extends BaseProcessor {
         if (funcAttr.getFlags() > 0) {
             builder.addStatement("intent.setFlags($L)", funcAttr.getFlags());
         }
+
+        Map<String, VariableElement> paramMap = funcAttr.getParamMap();
+        if (paramMap != null && !paramMap.isEmpty()) {
+            for (Map.Entry<String, VariableElement> paramSet : paramMap.entrySet()) {
+                builder.addStatement("intent.putExtra($S, $L)", paramSet.getKey(), paramSet.getValue());
+
+                ParameterSpec spec = ParameterSpec.builder(ClassName.get(paramSet.getValue().asType()), paramSet.getValue().getSimpleName().toString()).build();
+                parameterSpecSet.add(spec);
+            }
+        }
+
         builder.addStatement("context.startActivity(intent)");
 
         if (funcAttr.getAnimIn() > 0 && funcAttr.getAnimOut() > 0) {
@@ -259,6 +274,7 @@ public class ServiceProcessor extends BaseProcessor {
                 .addModifiers(Modifier.PUBLIC)
                 .returns(void.class)
                 .addAnnotation(Override.class)
+                .addParameters(parameterSpecSet)
                 .addCode(builder.build())
                 .build();
     }

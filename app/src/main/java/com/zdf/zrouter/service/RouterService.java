@@ -7,6 +7,7 @@ import com.zdf.zrouter.LocalActivity;
 import com.zdf.zrouter.anno.Action;
 import com.zdf.zrouter.anno.Activity;
 import com.zdf.zrouter.anno.Class;
+import com.zdf.zrouter.anno.Param;
 import com.zdf.zrouter.anno.Url;
 
 /**
@@ -20,7 +21,7 @@ public interface RouterService {
     void startLocalActivity();
 
     @Activity("com.zdf.zrouter.first.FirstActivity")
-    void startFirstActivity();
+    void startFirstActivity(@Param("param1") String p1, @Param("param2") int p2);
 
     @Activity("com.zdf.zrouter.second.SecondActivity")
 //    @Path("second")

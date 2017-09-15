@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         btnJump2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                routerService.startFirstActivity();
+                routerService.startFirstActivity("haha", 100);
             }
         });
 

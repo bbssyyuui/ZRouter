@@ -5,11 +5,17 @@ import com.zdf.zrouter.anno.Activity;
 import com.zdf.zrouter.anno.Anim;
 import com.zdf.zrouter.anno.Class;
 import com.zdf.zrouter.anno.Flag;
+import com.zdf.zrouter.anno.Param;
 import com.zdf.zrouter.anno.Path;
 import com.zdf.zrouter.anno.Url;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.TypeMirror;
 
@@ -28,6 +34,7 @@ public class FuncAttr {
     private int flags;
     private int animIn;
     private int animOut;
+    private Map<String, VariableElement> paramMap = new HashMap<>();
 
     public FuncAttr(Element element) {
         methodElement = (ExecutableElement) element;
@@ -71,6 +78,14 @@ public class FuncAttr {
         if (annoAnim != null) {
             animIn = annoAnim.in();
             animOut = annoAnim.out();
+        }
+
+        List<? extends VariableElement> params = methodElement.getParameters();
+        if (params != null) {
+            for (VariableElement p : params) {
+                Param annoParam = p.getAnnotation(Param.class);
+                paramMap.put(annoParam.value(), p);
+            }
         }
     }
 
@@ -144,5 +159,13 @@ public class FuncAttr {
 
     public void setAnimOut(int animOut) {
         this.animOut = animOut;
+    }
+
+    public Map<String, VariableElement> getParamMap() {
+        return paramMap;
+    }
+
+    public void setParamMap(Map<String, VariableElement> paramMap) {
+        this.paramMap = paramMap;
     }
 }
