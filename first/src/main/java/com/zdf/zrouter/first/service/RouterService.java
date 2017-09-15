@@ -1,6 +1,6 @@
 package com.zdf.zrouter.first.service;
 
-import com.zdf.zrouter.anno.Path;
+import com.zdf.zrouter.anno.Activity;
 
 /**
  * Created by xiaofeng on 2017/9/3.
@@ -8,6 +8,6 @@ import com.zdf.zrouter.anno.Path;
 
 public interface RouterService {
 
-    @Path("com.zdf.zrouter.second.SecondActivity")
+    @Activity("com.zdf.zrouter.second.SecondActivity")
     void startSecondActivity();
 }

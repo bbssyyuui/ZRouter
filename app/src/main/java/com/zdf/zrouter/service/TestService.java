@@ -1,7 +1,7 @@
 package com.zdf.zrouter.service;
 
 import com.zdf.zrouter.LocalActivity;
-import com.zdf.zrouter.anno.Activity;
+import com.zdf.zrouter.anno.Class;
 import com.zdf.zrouter.anno.Url;
 
 /**
@@ -10,10 +10,10 @@ import com.zdf.zrouter.anno.Url;
 
 public interface TestService {
 
-    @Activity(LocalActivity.class)
+    @Class(LocalActivity.class)
     void startFirstActivity();
 
     @Url("zdf://first")
-    @Activity(LocalActivity.class)
+    @Class(LocalActivity.class)
     void startThirdActivity();
 }

@@ -2,6 +2,9 @@ package com.zdf.zrouter.complier.model;
 
 import com.zdf.zrouter.anno.Action;
 import com.zdf.zrouter.anno.Activity;
+import com.zdf.zrouter.anno.Anim;
+import com.zdf.zrouter.anno.Class;
+import com.zdf.zrouter.anno.Flag;
 import com.zdf.zrouter.anno.Path;
 import com.zdf.zrouter.anno.Url;
 
@@ -17,25 +20,36 @@ import javax.lang.model.type.TypeMirror;
 public class FuncAttr {
 
     private ExecutableElement methodElement;
-    private TypeMirror activity;
+    private TypeMirror clazz;
+    private String activity;
     private String path;
     private String url;
     private String action;
+    private int flags;
+    private int animIn;
+    private int animOut;
 
     public FuncAttr(Element element) {
         methodElement = (ExecutableElement) element;
 
+        Class annoClass = element.getAnnotation(Class.class);
         Activity annoActivity = element.getAnnotation(Activity.class);
         Path annoPath = element.getAnnotation(Path.class);
         Url annoUrl = element.getAnnotation(Url.class);
         Action annoAction = element.getAnnotation(Action.class);
+        Flag annoFlag = element.getAnnotation(Flag.class);
+        Anim annoAnim = element.getAnnotation(Anim.class);
+
+        if (annoClass != null) {
+            try {
+                annoClass.value();
+            } catch (MirroredTypeException mte) {
+                clazz = mte.getTypeMirror();
+            }
+        }
 
         if (annoActivity != null) {
-            try {
-                annoActivity.value();
-            } catch (MirroredTypeException mte) {
-                activity = mte.getTypeMirror();
-            }
+            activity = annoActivity.value();
         }
 
         if (annoPath != null) {
@@ -49,6 +63,15 @@ public class FuncAttr {
         if (annoAction != null) {
             action = annoAction.value();
         }
+
+        if (annoFlag != null) {
+            flags = annoFlag.value();
+        }
+
+        if (annoAnim != null) {
+            animIn = annoAnim.in();
+            animOut = annoAnim.out();
+        }
     }
 
     public ExecutableElement getMethodElement() {
@@ -59,11 +82,19 @@ public class FuncAttr {
         this.methodElement = methodElement;
     }
 
-    public TypeMirror getActivity() {
+    public TypeMirror getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(TypeMirror clazz) {
+        this.clazz = clazz;
+    }
+
+    public String getActivity() {
         return activity;
     }
 
-    public void setActivity(TypeMirror activity) {
+    public void setActivity(String activity) {
         this.activity = activity;
     }
 
@@ -89,5 +120,29 @@ public class FuncAttr {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public int getFlags() {
+        return flags;
+    }
+
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
+
+    public int getAnimIn() {
+        return animIn;
+    }
+
+    public void setAnimIn(int animIn) {
+        this.animIn = animIn;
+    }
+
+    public int getAnimOut() {
+        return animOut;
+    }
+
+    public void setAnimOut(int animOut) {
+        this.animOut = animOut;
     }
 }

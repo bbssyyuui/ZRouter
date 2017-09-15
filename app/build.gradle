@@ -30,7 +30,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile project(':zrouter-api')
-    compile project(':zrouter-aspectjx')
     annotationProcessor project(':zrouter-compiler')
 
     compile project(':first')

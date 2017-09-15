@@ -1,7 +1,7 @@
 package com.zdf.zrouter.complier.processor;
 
 import com.google.auto.service.AutoService;
-import com.zdf.zrouter.anno.Activity;
+import com.zdf.zrouter.anno.Class;
 import com.zdf.zrouter.anno.Url;
 
 import java.util.ArrayList;
@@ -36,14 +36,14 @@ public class ExampleProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
-        types.add(Activity.class.getCanonicalName());
+        types.add(Class.class.getCanonicalName());
         types.add(Url.class.getCanonicalName());
         return types;
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        for (Element element : roundEnv.getElementsAnnotatedWith(Activity.class)) {
+        for (Element element : roundEnv.getElementsAnnotatedWith(Class.class)) {
             // 所有被使用的@Activity
 
             // 日志
@@ -51,7 +51,7 @@ public class ExampleProcessor extends AbstractProcessor {
         }
 
 
-        for (Element element : roundEnv.getElementsAnnotatedWith(Activity.class)) {
+        for (Element element : roundEnv.getElementsAnnotatedWith(Class.class)) {
             //Activity.class是@Target(METHOD)
             //则该element是可以强转为表示方法的ExecutableElement
             ExecutableElement method = (ExecutableElement) element;
@@ -62,7 +62,7 @@ public class ExampleProcessor extends AbstractProcessor {
 
 
         // Activity.class 以 @Target(ElementType.METHOD)修饰
-        for (Element element : roundEnv.getElementsAnnotatedWith(Activity.class)) {
+        for (Element element : roundEnv.getElementsAnnotatedWith(Class.class)) {
             // 对于Element直接强转
             ExecutableElement executableElement = (ExecutableElement) element;
 

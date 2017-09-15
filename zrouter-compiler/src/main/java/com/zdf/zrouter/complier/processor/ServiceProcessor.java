@@ -8,6 +8,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import com.zdf.zrouter.anno.Action;
 import com.zdf.zrouter.anno.Activity;
+import com.zdf.zrouter.anno.Class;
 import com.zdf.zrouter.anno.Path;
 import com.zdf.zrouter.anno.Url;
 import com.zdf.zrouter.complier.common.Constant;
@@ -42,6 +43,7 @@ public class ServiceProcessor extends BaseProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
+        types.add(Class.class.getCanonicalName());
         types.add(Activity.class.getCanonicalName());
         types.add(Path.class.getCanonicalName());
         types.add(Url.class.getCanonicalName());
@@ -221,24 +223,37 @@ public class ServiceProcessor extends BaseProcessor {
      * @return
      */
     private MethodSpec generateMethod(FuncAttr funcAttr) {
+        ClassName activity = ClassName.get("android.app", "Activity");
         ClassName intent = ClassName.get("android.content", "Intent");
         ClassName URI = ClassName.get("android.net", "Uri");
 
         CodeBlock.Builder builder = CodeBlock.builder();
         builder.addStatement("$T intent = new $T()", intent, intent);
+        if (funcAttr.getClazz() != null) {
+            builder.addStatement("intent.setClass(context, $T.class)", funcAttr.getClazz());
+        }
         if (funcAttr.getActivity() != null) {
-            builder.addStatement("intent.setClass(context, $T.class)", funcAttr.getActivity());
+            builder.addStatement("intent.setClassName(context, $S)", funcAttr.getActivity());
         }
-        if (funcAttr.getPath() != null) {
-            builder.addStatement("intent.setClassName(context, $S)", funcAttr.getPath());
-        }
+//        if (funcAttr.getPath() != null) {
+//            builder.addStatement("intent.setClassName(context, $S)", funcAttr.getPath());
+//        }
         if (funcAttr.getUrl() != null) {
             builder.addStatement("intent.setData($T.parse($S))", URI, funcAttr.getUrl());
         }
         if (funcAttr.getAction() != null) {
             builder.addStatement("intent.setAction($S)", funcAttr.getAction());
         }
+        if (funcAttr.getFlags() > 0) {
+            builder.addStatement("intent.setFlags($L)", funcAttr.getFlags());
+        }
         builder.addStatement("context.startActivity(intent)");
+
+        if (funcAttr.getAnimIn() > 0 && funcAttr.getAnimOut() > 0) {
+            builder.beginControlFlow("if (context instanceof $T)", activity);
+            builder.addStatement("(($T) context).overridePendingTransition($L, $L)", activity, funcAttr.getAnimIn(), funcAttr.getAnimOut());
+            builder.endControlFlow();
+        }
 
         return MethodSpec.methodBuilder(funcAttr.getMethodElement().getSimpleName().toString())
                 .addModifiers(Modifier.PUBLIC)

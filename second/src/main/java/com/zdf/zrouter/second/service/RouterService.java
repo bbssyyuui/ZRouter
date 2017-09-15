@@ -1,6 +1,9 @@
 package com.zdf.zrouter.second.service;
 
-import com.zdf.zrouter.anno.Path;
+import android.content.Intent;
+
+import com.zdf.zrouter.anno.Activity;
+import com.zdf.zrouter.anno.Flag;
 
 /**
  * Created by xiaofeng on 2017/9/3.
@@ -8,6 +11,7 @@ import com.zdf.zrouter.anno.Path;
 
 public interface RouterService {
 
-    @Path("com.zdf.zrouter.MainActivity")
+    @Activity("com.zdf.zrouter.MainActivity")
+    @Flag(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)
     void startMainActivity();
 }

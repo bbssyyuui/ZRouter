@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface Path {
-    String value() default "";
+public @interface Class {
+    java.lang.Class<?> value();
 }
